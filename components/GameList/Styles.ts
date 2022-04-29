@@ -4,9 +4,9 @@ import styled from "styled-components"
 export const StyledMain = styled.main`
   display: flex;
   color: #f4f4f4;
-  padding:0 30px ;
-@media (max-width: 1076px) {
-padding: 0};
+  padding: 0;
+  @media (min-width: 1076px) {
+  padding:0 30px ;}
   & > span{
     color:#f4f4f4;
     font-weight: 700;
@@ -20,6 +20,7 @@ flex: 1;
 display: grid;
 justify-content: center;
 @media (max-width: 1076px) {
+gap: 10px;
 grid-template-columns: repeat(2, minmax(200px, 365px));}
 grid-template-columns: repeat(auto-fit, 365px);
 gap: 20px;
@@ -31,6 +32,7 @@ padding:0 10px;
   cursor: pointer;
   & h2 {
     margin: 0;
+    margin-top: -5px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -49,7 +51,6 @@ export const SearchBar = styled.form`
   z-index: 1;
   background-color: #121212;
   & input{
-    color: #f4f4f4;
     background: transparent;
     height: 30px;
     border-radius: 5px;

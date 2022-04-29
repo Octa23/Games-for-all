@@ -13,8 +13,17 @@ export interface Games {
 
 export type screenshotsdetail = {
   id: number,
-  url: string
+  image: string
 }
+
+export type GameRequirements = {
+  os: string
+  processor: string
+  memory: string
+  graphics: string
+  storage: string
+}
+
 
 export interface DetailedGame {
   id: number
@@ -23,16 +32,11 @@ export interface DetailedGame {
   short_description: string
   description: string
   game_url: string
+  developer:string
   genre: string
   platform: string
   publisher: string
   release_date: string
-  minimum_system_requirements: {
-    os: string
-    processor: string
-    memory: string
-    graphics: string
-    storage: string
-  }
+  minimum_system_requirements: GameRequirements
   screenshots: Array<screenshotsdetail>
 }

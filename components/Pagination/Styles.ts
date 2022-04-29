@@ -19,7 +19,8 @@ export const StyledButton = styled.button`
   color: #f4f4f4;
   cursor: pointer;
   ${props => props.disabled &&`
-  color: #ffffff45;
-  cursor: unset;
+    cursor: unset;
+  & path{
+  color: #ffffff45;}
 `}
   `

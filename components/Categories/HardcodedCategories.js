@@ -27,7 +27,6 @@ export const categories = [
   'card',
   'battle-royale',
   'mmo',
-  'mmofps',
   'mmotps',
   '3d',
   '2d',

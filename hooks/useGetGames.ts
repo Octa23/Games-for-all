@@ -20,18 +20,14 @@ const getAllGames = (category: string | undefined) => {
 }
 
 export const useGetGames = (category:string | undefined) => {
-  const maxGamesPerPage = 30
+  const maxGamesPerPage = 36
   const [games, setGames] = useState<Array<Games>>([])
   const [sort, setSort] = useState<sort>("default")
   const [loading, setLoading] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
 
   const handlePage = (prop: "back" | "next") => {
-    if (prop === "back") {
-      setPage(page - 1)
-    } else {
-      setPage(page + 1)
-    }
+    setPage(prev => prev + ( prop === "back" ? - 1 : + 1))
     setTimeout(() => {
       window.scroll({
         top: 0,
@@ -51,7 +47,7 @@ export const useGetGames = (category:string | undefined) => {
   let sortedGames: Games[] = []
   
   const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSort(e.target.value as sort)
+    setSort(e.target.value   as sort)
   }
 
     if (sort === "name") {
@@ -62,7 +58,7 @@ export const useGetGames = (category:string | undefined) => {
     }
     if (sort === "default") {
       sortedGames = [...games]
-  }
+    }
   
   const gamesOnScreen = sortedGames?.slice((page - 1) * maxGamesPerPage, page * maxGamesPerPage)
   const lastpage = Math.ceil(sortedGames?.length / maxGamesPerPage)
