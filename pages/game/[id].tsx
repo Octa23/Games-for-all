@@ -5,7 +5,6 @@ import styled from "styled-components"
 import Link from 'next/link'
 import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from 'react-icons/bs'
 import { StyledButton as StyledCButton } from '../../components/Pagination/Styles'
-import Image from 'next/image'
 
 const index = () => {
   const router = useRouter()
@@ -44,14 +43,12 @@ const index = () => {
               {screenshots &&
                 <>
                   <div>
-                    <Image src={screenshots[activeImage].image} quality={"70%"} width={2250} height={1390} layout="responsive" />
                     <StyledPButton onClick={() => handleImage(activeImage - 1)}><BsFillArrowLeftSquareFill /></StyledPButton>
                     <StyledNButton onClick={() => handleImage(activeImage + 1)}><BsFillArrowRightSquareFill /></StyledNButton>
+                    <StyledImage src={screenshots[activeImage].image} />
                   </div>
                   <ul>
-                    {screenshots.map((screenshot, index) => <SliderItem active={activeImage === index} key={screenshot.id}>
-                      <Image src={screenshot.image} quality={"10%"} width={2250} height={1390} layout="responsive" onClick={() => handleImage(index)} />
-                    </SliderItem>)}
+                    {screenshots.map((screenshot, index) => <SliderItem active={activeImage === index} key={screenshot.id}><StyledImage onClick={() => handleImage(index)} src={screenshot.image} /></SliderItem>)}
                   </ul>
                 </>}
             </StyledCarousel>
@@ -193,28 +190,31 @@ flex-direction: column;
 & > div{
   position: relative;
   &:hover{
-    & button{
+    & > button{
       opacity: 1;
-      transition: opacity .5s;}}
-    }
+      transition: opacity .5s;
+  }
+}}
 & ul {
   margin-top: 15px;
   padding: 0;
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: 5px;}
-& img {border-radius: 5px;
-}
-`
-
+  gap: 5px;
+}`
 const SliderItem = styled.li<{ active: boolean }>`
 border: ${props => props.active ? "2px solid #f4f4f4" : "2px solid transparent"};
 border-radius: 5px;
-width: 100%;
 max-width: 150px;
 cursor: pointer;
-&:hover{opacity: 0.4}
+&:hover{
+  opacity: 0.4}
+& img { 
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+object-fit: cover;};
 `
 const StyledArticle = styled.article`
 & * {
