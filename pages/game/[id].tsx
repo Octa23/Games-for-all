@@ -4,7 +4,7 @@ import { useGetDetailedGame } from '../../hooks/useGetDetailedGame'
 import styled from "styled-components"
 import Link from 'next/link'
 import { BsFillArrowLeftSquareFill, BsFillArrowRightSquareFill } from 'react-icons/bs'
-import { StyledButton as StyledCButton  } from '../../components/Pagination/Styles'
+import { StyledButton as StyledCButton } from '../../components/Pagination/Styles'
 
 const index = () => {
   const router = useRouter()
@@ -15,7 +15,7 @@ const index = () => {
   const [activeImage, setActiveImage] = useState<number>(0)
 
   const handleImage = (index: number) => {
-    setActiveImage(() => index < 0 ? screenshots.length-1 : index > screenshots.length-1 ? 0 : index)//Si se retocede desde la primera posicion te lleva al ultimo indice de las screenshots y viceversa
+    setActiveImage(() => index < 0 ? screenshots.length - 1 : index > screenshots.length - 1 ? 0 : index)//Si se retocede desde la primera posicion te lleva al ultimo indice de las screenshots y viceversa
   }
 
   return <div>
@@ -23,49 +23,49 @@ const index = () => {
       <StyledMain>
         <StyledAllInfo>
           <StyledSticky>
-          <div>
-          <StyledImage src={gameInfo.thumbnail} />
-          <div>
-          <StyledLink href={gameInfo.game_url}>Claim Now</StyledLink>
-          <StyledButton>Add to favorites</StyledButton>
-          </div>
-          <StyledAditionallInfo>
-          <StyledLi><p>Developer</p><span>{gameInfo.developer}</span></StyledLi>
-          <StyledLi><p>Publisher</p><span>{gameInfo.publisher}</span></StyledLi>
-          <StyledLi><p>Release Date</p><span>{gameInfo.release_date}</span></StyledLi>
-          <StyledLi><p>Platform</p><span>{gameInfo.platform}</span></StyledLi>
-              </StyledAditionallInfo>
+            <div>
+              <StyledImage src={gameInfo.thumbnail} />
+              <div>
+                <StyledLink href={gameInfo.game_url}>Claim Now</StyledLink>
+                <StyledButton>Add to favorites</StyledButton>
               </div>
+              <StyledAditionallInfo>
+                <StyledLi><p>Developer</p><span>{gameInfo.developer}</span></StyledLi>
+                <StyledLi><p>Publisher</p><span>{gameInfo.publisher}</span></StyledLi>
+                <StyledLi><p>Release Date</p><span>{gameInfo.release_date}</span></StyledLi>
+                <StyledLi><p>Platform</p><span>{gameInfo.platform}</span></StyledLi>
+              </StyledAditionallInfo>
+            </div>
           </StyledSticky>
           <StyledMainDiv>
-          <h1>{gameInfo.title}</h1>
-          <StyledCarousel>
-            {screenshots &&
-              <>
-                <div>
-                <StyledPButton onClick={() => handleImage(activeImage-1)}><BsFillArrowLeftSquareFill/></StyledPButton>
-                <StyledNButton onClick={() => handleImage(activeImage+1)}><BsFillArrowRightSquareFill /></StyledNButton>
-                <StyledImage src={screenshots[activeImage].image} />
-                </div>   
-                <ul>
-                  {screenshots.map((screenshot,index) => <SliderItem active={activeImage === index} key={screenshot.id}><StyledImage  onClick={() => handleImage(index)} src={screenshot.image} /></SliderItem>)}
-                </ul>
-              </>}
-          </StyledCarousel>
-          <StyledArticle>
-            <h3>{gameInfo.short_description}</h3>
-            <p>Genero: <Link href={`/categories/${gameInfo.genre}`}><a>{gameInfo.genre}</a></Link></p>
-            <p>{gameInfo.description}</p>
-          </StyledArticle>
-          <StyledSystemRequeriments>
-            <h3>Minimum System Requirements</h3>
-            <StyledAditionallInfo>
-              {minimum_system_requirements && Object.entries(minimum_system_requirements).map(([ key, value ]) =>
-                <StyledLi key={key}><p>{key}</p><span>{value ?? "No data"}</span></StyledLi>)}
-            </StyledAditionallInfo>
+            <h1>{gameInfo.title}</h1>
+            <StyledCarousel>
+              {screenshots &&
+                <>
+                  <div>
+                    <StyledPButton onClick={() => handleImage(activeImage - 1)}><BsFillArrowLeftSquareFill /></StyledPButton>
+                    <StyledNButton onClick={() => handleImage(activeImage + 1)}><BsFillArrowRightSquareFill /></StyledNButton>
+                    <StyledImage src={screenshots[activeImage].image} />
+                  </div>
+                  <ul>
+                    {screenshots.map((screenshot, index) => <SliderItem active={activeImage === index} key={screenshot.id}><StyledImage onClick={() => handleImage(index)} src={screenshot.image} /></SliderItem>)}
+                  </ul>
+                </>}
+            </StyledCarousel>
+            <StyledArticle>
+              <h3>{gameInfo.short_description}</h3>
+              <p>Genero: <Link href={`/categories/${gameInfo.genre}`}><a>{gameInfo.genre}</a></Link></p>
+              <p>{gameInfo.description}</p>
+            </StyledArticle>
+            <StyledSystemRequeriments>
+              <h3>Minimum System Requirements</h3>
+              <StyledAditionallInfo>
+                {minimum_system_requirements && Object.entries(minimum_system_requirements).map(([key, value]) =>
+                  <StyledLi key={key}><p>{key}</p><span>{value ?? "No data"}</span></StyledLi>)}
+              </StyledAditionallInfo>
             </StyledSystemRequeriments>
-            </StyledMainDiv>
-          </StyledAllInfo>
+          </StyledMainDiv>
+        </StyledAllInfo>
       </StyledMain>}
   </div>
 }
@@ -135,7 +135,7 @@ max-width: 1024px;
   line-height: 1;
 }
 `
-const StyledLink:any = styled.a`
+const StyledLink: any = styled.a`
 display: block;
 position: relative;
 text-align: center;

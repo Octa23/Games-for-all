@@ -18,7 +18,7 @@ export const StyledButton = styled.button`
   font-size: 30px;
   color: #f4f4f4;
   cursor: pointer;
-  ${props => props.disabled &&`
+  ${props => props.disabled && `
     cursor: unset;
   & path{
   color: #ffffff45;}

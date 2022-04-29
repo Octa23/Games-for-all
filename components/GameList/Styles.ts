@@ -71,6 +71,6 @@ export const SearchBar = styled.form`
           }
           }
           `
-  export const StyledLink = styled.a`
+export const StyledLink = styled.a`
   font-size: 1.25rem;
   `

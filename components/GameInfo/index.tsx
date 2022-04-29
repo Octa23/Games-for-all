@@ -22,7 +22,7 @@ const index = ({ game }: Props) => {
             <p>{game.short_description}</p>
             <StyledGameInfo>
               <span>{game.publisher}</span>
-              <a target={'_blank'} onClick={(e)=>{e.stopPropagation()}} href={game.game_url}>Claim Now!</a>
+              <a target={'_blank'} onClick={(e) => { e.stopPropagation() }} href={game.game_url}>Claim Now!</a>
             </StyledGameInfo>
           </StyledExtraInfo>
         </StyledMoreInfo>

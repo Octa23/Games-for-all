@@ -23,8 +23,6 @@ export type GameRequirements = {
   graphics: string
   storage: string
 }
-
-
 export interface DetailedGame {
   id: number
   title: string
@@ -32,7 +30,7 @@ export interface DetailedGame {
   short_description: string
   description: string
   game_url: string
-  developer:string
+  developer: string
   genre: string
   platform: string
   publisher: string

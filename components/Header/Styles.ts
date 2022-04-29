@@ -24,6 +24,6 @@ export const StyledLogoContainer = styled.div`
     font-size:20px;
     line-height:20px}
     `
-  export const StyledLink = styled.a`
+export const StyledLink = styled.a`
   font-size: 1.25rem;
   `
