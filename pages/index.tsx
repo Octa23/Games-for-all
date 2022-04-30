@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import GameList from '../components/GameList'
+import Spinner from '../components/Spinner'
 const Home: NextPage = () => {
   return (
     <div>
