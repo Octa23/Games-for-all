@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import useSearch from '../../hooks/useSearch'
 interface Props {
   handleBackPage?: (e: React.MouseEvent<HTMLButtonElement>) => void
-  show: boolean
+  show?: boolean
 }
 
 
@@ -21,7 +21,6 @@ const index = ({ handleBackPage }: Props) => {
     debouncedSearch(e)
   }
 
-  console.log(show)
 
   return (
     <NavBar onMouseLeave={() => { setShow(false) }}>

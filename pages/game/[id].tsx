@@ -6,7 +6,7 @@ import Carousel from '../../components/Carousel'
 import GameArticle from '../../components/GameArticle'
 import GameSystemRequirements from '../../components/GameSystemRequirements'
 import Spinner from "../../components/Spinner"
-import SearchBar from "../../components/SearchBar"
+import NavBar from "../../components/NavBar"
 import React from 'react'
 
 const index = () => {
@@ -22,7 +22,7 @@ const index = () => {
   }
 
   return <StyledMainContainer>
-    <SearchBar handleBackPage={handleBackPage} />
+    <NavBar handleBackPage={handleBackPage} />
     {loading ? <Spinner /> :
       <StyledMain>
         <GameDetailedCard gameInfo={gameInfo} />
