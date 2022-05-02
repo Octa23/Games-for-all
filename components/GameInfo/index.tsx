@@ -3,18 +3,29 @@ import Link from 'next/link'
 import { BsHeart } from "react-icons/bs";
 import { Games } from '../../types';
 import styled, { keyframes } from 'styled-components';
-
 interface Props {
   game: Games
+  page: number
+  sort: "default" | "name" | "releasedate"
 }
 
-const index = ({ game }: Props) => {
+const index = ({ game, page, sort }: Props) => {
+
+  const handleClick = () => {
+    sessionStorage.setItem("page", String(page))
+    sessionStorage.setItem("sort", String(sort))
+  }
+  const handleclick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation()
+    console.log(game.title)
+  }
+
   return (
     <Link href={`/game/${game.id}`}>
-      <StyledListItem>
+      <StyledListItem onClick={handleClick}>
         <StyledImageContainer>
-          <StyledFavorite><BsHeart /></StyledFavorite>
-          <img src={game.thumbnail} />
+          <StyledFavorite onClick={handleclick}><BsHeart /></StyledFavorite>
+          <img alt={game.title + " image"} src={game.thumbnail} />
         </StyledImageContainer>
         <StyledMoreInfo>
           <h2>{game.title}</h2>
@@ -32,7 +43,10 @@ const index = ({ game }: Props) => {
 }
 
 const StyledFavorite = styled.button`
-visibility: hidden;
+@media (min-width: 1076px) {
+background-color: transparent;
+visibility: hidden;}
+z-index: 1;
 position: absolute;
 display: flex;
 align-items: center;
@@ -40,18 +54,20 @@ padding: 5px;
 border-radius: 999px;
 top: 10px;
 right: 10px;
-background-color: transparent;
 border: none;
 font-size: 24px;
-color: red;
-z-index: 2;
+background-color: #000000ba;
+cursor: pointer;
+& svg{
+  color: red;
+}
 `
 const StyledExtraInfo = styled.div`
 display: none;
 & > p{
 overflow: hidden;
-text-overflow: ellipsis;
 display: -webkit-box;
+text-overflow: ellipsis;
 -webkit-line-clamp: 3;
 -webkit-box-orient: vertical;
 }`
@@ -66,6 +82,9 @@ opacity: 1;
 const StyledMoreInfo = styled.div`
 width: 100%;
 height: 100%;
+& > h2{
+  width: 90%;
+  text-overflow: ellipsis;}
 `
 const StyledListItem = styled.li`
 @media (min-width: 1076px) {
@@ -110,9 +129,12 @@ transform: scale(1.1);
 }
 `
 const StyledImageContainer = styled.div`
+
 position: relative;
 & img{
+background-color: #353535;
 width: 100%;
+height: 100%;
 object-fit: cover;
 border-radius: 5px;
 }

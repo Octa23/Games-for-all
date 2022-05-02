@@ -17,9 +17,11 @@ const useGames = ({ category, gameId }: Props) => {
     : gameId ? baseUrl += `?id=${gameId}`
       : baseUrl += "s"
 
+  
   return fetch(baseUrl, options)
     .then(response => response.json())
     .then(response => response)
 }
+
 
 export default useGames

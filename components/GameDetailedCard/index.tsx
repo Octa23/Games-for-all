@@ -10,7 +10,7 @@ const index = ({ gameInfo }: Props) => {
   return (
     <StyledSticky>
       <div>
-        <StyledImage src={gameInfo.thumbnail} />
+        <StyledImage alt={gameInfo.title + " image"} src={gameInfo.thumbnail} />
         <div>
           <StyledLink target={'_blank'} href={gameInfo.game_url}>Claim Now</StyledLink>
           <StyledButton>Add to favorites</StyledButton>

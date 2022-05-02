@@ -6,9 +6,10 @@ import type { screenshotsdetail } from '../../types'
 
 type Props = {
   screenshots: screenshotsdetail[]
+  title: string
 }
 
-const index = ({ screenshots }: Props) => {
+const index = ({ screenshots, title }: Props) => {
   const [activeImage, setActiveImage] = useState<number>(0)
   const handleImage = (index: number) => {
     setActiveImage(() => index < 0 ? screenshots.length - 1 : index > screenshots.length - 1 ? 0 : index)//Si se retocede desde la primera posicion te lleva al ultimo indice de las screenshots y viceversa
@@ -21,10 +22,10 @@ const index = ({ screenshots }: Props) => {
           <div>
             <StyledPButton onClick={() => handleImage(activeImage - 1)}><BsFillArrowLeftSquareFill /></StyledPButton>
             <StyledNButton onClick={() => handleImage(activeImage + 1)}><BsFillArrowRightSquareFill /></StyledNButton>
-            <StyledImage src={screenshots[activeImage].image} />
+            <StyledImage alt={title + " image"} src={screenshots[activeImage].image} />
           </div>
           <ul>
-            {screenshots.map((screenshot, index) => <SliderItem active={activeImage === index} key={screenshot.id}><StyledImage onClick={() => handleImage(index)} src={screenshot.image} /></SliderItem>)}
+            {screenshots.map((screenshot, index) => <SliderItem active={activeImage === index} key={screenshot.id}><StyledImage onClick={() => handleImage(index)} src={screenshot.image} alt={title + " image"} /></SliderItem>)}
           </ul>
         </StyledCarousel>}
     </>

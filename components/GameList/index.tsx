@@ -3,22 +3,22 @@ import Pagination from "../Pagination"
 import Categories from "../Categories"
 import GameInfo from "../GameInfo"
 import SortBy from "../SortBy"
-import Spinner from "../Spinner"
 import styled from 'styled-components';
+import Skeleton from "../Skeleton"
 interface Props {
   category?: string;
 }
 
 const index = ({ category }: Props) => {
-  const { gamesOnScreen, page, loading, handlePage, lastpage, handleSort } = useGetGames(category)
+  const { gamesOnScreen, page, loading, handlePage, lastpage, handleSort, sort } = useGetGames(category)
   return (
     <>
-      <SortBy handleSort={handleSort} />
+      <SortBy handleSort={handleSort} sort={sort} />
       <StyledMain>
-        {loading ? <Spinner /> :
-          gamesOnScreen && <StyledList>
-            {gamesOnScreen.map(game => <GameInfo key={game.id} game={game} />)}
-          </StyledList>}
+        <StyledList>
+          {loading ? Array.from(new Array(12)).map((_, i) => <Skeleton key={i} />)
+            : gamesOnScreen.map(game => <GameInfo key={game.id} game={game} page={page} sort={sort} />)}
+        </StyledList>
         <Categories />
       </StyledMain>
       {page !== 0 && <Pagination page={page} handlePage={handlePage} lastpage={lastpage} />}

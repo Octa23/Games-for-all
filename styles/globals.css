@@ -4,6 +4,8 @@ body {
   padding: 0;
   margin: 0;
   background-color: #121212;
+  color: #f4f4f4;
+
 }
 
 ul {
@@ -19,5 +21,4 @@ a {
   font-family: "Darker Grotesque", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   box-sizing: border-box;
-  color: #f4f4f4;
 }

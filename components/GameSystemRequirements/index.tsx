@@ -8,13 +8,16 @@ type Props = {
 
 const index = ({ minimum_system_requirements }: Props) => {
   return (
-    <StyledSystemRequirements>
-      <h3>Minimum System Requirements</h3>
-      <StyledAditionallInfo>
-        {minimum_system_requirements && Object.entries(minimum_system_requirements).map(([key, value]) =>
-          <StyledLi key={key}><p>{key}</p><span>{value ?? "No data"}</span></StyledLi>)}
-      </StyledAditionallInfo>
-    </StyledSystemRequirements>
+    <>
+      {minimum_system_requirements &&
+        <StyledSystemRequirements>
+          <h3>Minimum System Requirements</h3>
+          <StyledAditionallInfo>
+            {minimum_system_requirements && Object.entries(minimum_system_requirements).map(([key, value]) =>
+              <StyledLi key={key}><p>{key}</p><span>{value ?? "No data"}</span></StyledLi>)}
+          </StyledAditionallInfo>
+        </StyledSystemRequirements>}
+    </>
   )
 }
 
