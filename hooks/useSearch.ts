@@ -6,18 +6,22 @@ const useSearch = () => {
   const [games, setGames] = useState<Games[]>([])
   const [search, setSearch] = useState("")
   const [results, setResults] = useState<Games[]>([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => { useGames({ category: undefined }).then(setGames) }, [])
   const debouncedSearch = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
-  }, 1000);
+  }, 1500);
 
   useEffect(() => {
-    const results: Games[] = games.filter(game => game.title.toLowerCase().includes(search.toLowerCase()))
-    setResults(results.slice(0, 3))
+    if (search.length > 0) {
+      const results: Games[] = games.filter(game => game.title.toLowerCase().includes(search.toLowerCase()))
+      setResults(results.slice(0, 3))
+    } else { setResults([]) }
+    setLoading(false)
   }, [search])
 
-  return ({ debouncedSearch, results, setResults }
+  return ({ debouncedSearch, results, setResults, loading, setLoading }
   )
 }
 

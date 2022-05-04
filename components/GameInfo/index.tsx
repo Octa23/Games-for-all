@@ -41,6 +41,7 @@ const index = ({ game, page, sort }: Props) => {
     </Link>
   )
 }
+export default React.memo(index, (prev, next) => prev.game.id === next.game.id) //Si el id de las props actuales es igual al de las nuevas no se re-renderiza
 
 const StyledFavorite = styled.button`
 @media (min-width: 1076px) {
@@ -87,6 +88,7 @@ height: 100%;
   text-overflow: ellipsis;}
 `
 const StyledListItem = styled.li`
+&:hover{& img{opacity: 0.6;}}
 @media (min-width: 1076px) {
 &:hover{
 ${StyledMoreInfo}{
@@ -140,4 +142,3 @@ border-radius: 5px;
 }
 `
 
-export default index

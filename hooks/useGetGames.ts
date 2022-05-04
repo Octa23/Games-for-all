@@ -24,6 +24,7 @@ export const useGetGames = (category: string | undefined) => {
   }
 
   useEffect(() => {
+    console.log("llama")
     rpage = (sessionStorage.getItem("recover") && Number(sessionStorage.getItem("page"))) as number
     rsort = (sessionStorage.getItem("recover") && sessionStorage.getItem("sort") as sort) as sort
     setLoading(true)

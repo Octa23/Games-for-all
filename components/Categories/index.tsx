@@ -28,11 +28,21 @@ font-size: 1.5rem;
 & > div{
   position: sticky;
   top:80px;
+  & > h3{margin-top:0}
 }
   & ul{display: flex;
+    padding: 0;
     flex-wrap: wrap;
-    gap: 11px;
+    background-color: #4b4b4b22;
+    border-radius: 5px;
+    padding: 10px;
+    justify-content: space-between;
+    gap: 5px 0px;
     font-size: 1.25rem;
+    & li{padding:3px 5px;
+      &:hover{
+        background-color: #4b4b4b;}}
+
   }
   @media (max-width: 1076px) {
     display: none;

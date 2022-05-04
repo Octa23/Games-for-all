@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import useSearch from '../../hooks/useSearch'
+import Spinner from '../Spinner'
 interface Props {
   handleBackPage?: (e: React.MouseEvent<HTMLButtonElement>) => void
   show?: boolean
@@ -10,7 +11,7 @@ interface Props {
 
 const index = ({ handleBackPage }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { debouncedSearch, results, setResults } = useSearch()
+  const { debouncedSearch, results, setResults, loading, setLoading } = useSearch()
   const [show, setShow] = useState(false)
   const handleClick = () => {
     if (inputRef.current) { inputRef.current.value = "" }
@@ -18,6 +19,7 @@ const index = ({ handleBackPage }: Props) => {
   }
 
   const handlesearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true)
     debouncedSearch(e)
   }
 
@@ -30,18 +32,17 @@ const index = ({ handleBackPage }: Props) => {
           <input ref={inputRef} onChange={(e) => { handlesearch(e) }} type="text" placeholder="Search" />
           <button>Search</button>
         </SearchBar>
-        {results.length ? <StyledResults onClick={() => { setShow(true) }}>{results.length} resultados</StyledResults> : null}
+        {loading ? <Spinner size="30px" /> :
+          results.length ? <StyledResults onClick={() => { setShow(true) }}>{results.length} resultados</StyledResults> : null}
       </div>
       {results.length > 0 && inputRef.current?.value && (
         <StyledResultList show={show}>
           {results.map((result) =>
             <Link key={result.id} href={`/game/${result.id}`}>
-              <a>
-                <li onClick={handleClick} >
-                  <img src={result.thumbnail} alt={result.title} />
-                  <p>{result.title}</p>
-                </li>
-              </a>
+              <li onClick={handleClick} >
+                <img src={result.thumbnail} alt={result.title} />
+                <p>{result.title}</p>
+              </li>
             </Link>)}
         </StyledResultList>
       )}
@@ -66,11 +67,13 @@ gap: 5px;
 max-width: 660px;
 border-radius: 5px;
 & li {
+  cursor: pointer;
   gap: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  &:hover {& img{opacity: 0.6;}}
   & p {
     margin: 0;
     line-height: 1;
@@ -82,6 +85,7 @@ border-radius: 5px;
   }
   & img{
     width: 100%;
+    border-radius: 5px;
   }}
   ${props => props.show && `
   display: flex;
