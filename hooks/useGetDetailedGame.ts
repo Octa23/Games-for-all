@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react'
-import { DetailedGame } from '../types';
-import useGames from '../services/useGames';
+import { useEffect, useState } from "react";
+import { DetailedGame } from "../types";
+import { fetchGames } from "../services/fetchGames";
 
 export const useGetDetailedGame = (gameId: string) => {
-  const [gameInfo, setGameInfo] = useState<DetailedGame>({} as DetailedGame)
-  const [loading, setLoading] = useState<boolean>(true)
+  const [gameInfo, setGameInfo] = useState<DetailedGame>({} as DetailedGame);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setLoading(true)
-    gameId && useGames({ gameId })
-      .then(setGameInfo)
-      .then(() => setLoading(false))
-  }, [gameId])
+    setLoading(true);
+    gameId &&
+      fetchGames({ gameId })
+        .then(setGameInfo)
+        .then(() => setLoading(false));
+  }, [gameId]);
 
-  return { gameInfo, loading }
-
-}
-
+  return { gameInfo, loading };
+};

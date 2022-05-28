@@ -1,14 +1,26 @@
-import type { NextPage } from 'next'
-import GameList from '../components/GameList'
-import NavBar from "../components/NavBar"
+import type { NextPage } from "next";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import GameList from "../components/GameList";
+import NavBar from "../components/NavBar";
+import { SetFavorites } from "../hooks/initFavorites";
 
 const Home: NextPage = () => {
+  const favorites = useSelector((state: any) => state.favorites);
+  const [filter, setFilter] = useState("");
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFilter(e.currentTarget.search.value);
+  };
+
+  SetFavorites();
+
   return (
     <div>
-      <NavBar />
-      <GameList />
+      <NavBar handleSearch={handleSearch} />
+      <GameList filter={filter} />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

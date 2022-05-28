@@ -52,6 +52,7 @@ transition: opacity .5s;
 `
 const StyledImage = styled.img`
 width: 100%;
+aspect-ratio: 16/9;
 border-radius: 5px;
 `
 const StyledCarousel = styled.div`
@@ -76,7 +77,8 @@ flex-direction: column;
 const SliderItem = styled.li<{ active: boolean }>`
 border: ${props => props.active ? "2px solid #f4f4f4" : "2px solid transparent"};
 border-radius: 5px;
-max-width: 150px;
+flex: 1;
+max-width:150px;
 cursor: pointer;
 &:hover{
   opacity: 0.4}
