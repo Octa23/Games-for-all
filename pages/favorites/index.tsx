@@ -5,13 +5,17 @@ import GameInfo from "../../components/GameInfo";
 import { StyledList } from "../../components/GameList";
 import { SetFavorites } from "../../hooks/initFavorites";
 import { Games } from "../../types";
+import { motion } from "framer-motion";
 const Favorites = () => {
   const { Favorites } = useSelector((state: any) => state.favorites);
   SetFavorites();
 
   return (
     <>
-      <StyledMain>
+      <StyledMain
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: 1 } }}
+      >
         <h1>Favorite list</h1>
         <StyledList>
           {Favorites.length ? (
@@ -19,7 +23,7 @@ const Favorites = () => {
               <GameInfo key={game.id} game={game} />
             ))
           ) : (
-            <h1>No favorites</h1>
+            <h2>The list is empty</h2>
           )}
         </StyledList>
       </StyledMain>
@@ -27,7 +31,7 @@ const Favorites = () => {
   );
 };
 
-const StyledMain = styled.main`
+const StyledMain = styled(motion.main)`
   display: flex;
   flex-direction: column;
   color: #f4f4f4;

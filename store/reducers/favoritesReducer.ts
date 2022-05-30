@@ -2,7 +2,7 @@ import { Games } from "../../types";
 
 const initialState = {
   Favorites: [] as Games[],
-}
+};
 
 export const favoritesReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -11,7 +11,7 @@ export const favoritesReducer = (state = initialState, action: any) => {
     case "@favorites/add":
       return { ...state, Favorites: [...state.Favorites, action.payload] };
     case "@favorites/remove":
-      return {
+      const newfavs = {
         ...state,
         Favorites: [
           ...state.Favorites.filter(
@@ -19,6 +19,8 @@ export const favoritesReducer = (state = initialState, action: any) => {
           ),
         ],
       };
+      !newfavs.Favorites.length && localStorage.removeItem("favorites");
+      return newfavs;
     default:
       return state;
   }

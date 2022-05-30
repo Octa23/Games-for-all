@@ -45,9 +45,9 @@ const index = () => {
   );
 };
 const StyledMainContainer = styled.main`
-  padding: 30px;
+  padding: 0px 30px 30px 30px;
   @media (min-width: 1076px) {
-    padding: 30px 60px 60px 60px;
+    padding: 0px 60px 60px 60px;
   }
 `;
 const StyledMain = styled.main`

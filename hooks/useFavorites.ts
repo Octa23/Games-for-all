@@ -12,7 +12,6 @@ const useFavorites = (game: Games) => {
   const dispatch = useDispatch();
   const { Favorites } = useSelector((state: any) => state.favorites);
   localStorage.setItem("favorites", JSON.stringify(Favorites));
-
   const isFavorite = Favorites?.some(
     (favorite: any) => favorite.id === game.id
   );

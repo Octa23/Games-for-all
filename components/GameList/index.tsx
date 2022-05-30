@@ -63,7 +63,7 @@ export const StyledList = styled.ul`
   grid-template-columns: repeat(auto-fit, 365px);
   gap: 20px;
   padding: 0 10px;
-  & > li {
+  &  li {
     position: relative;
     display: flex;
     flex-direction: column;

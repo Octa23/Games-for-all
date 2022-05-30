@@ -1,8 +1,11 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
+import useModal from "../../hooks/useModal";
 import useSearch from "../../hooks/useSearch";
 import Spinner from "../Spinner";
+import { motion, AnimatePresence } from "framer-motion";
+
 interface Props {
   handleBackPage?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   show?: boolean;
@@ -10,16 +13,11 @@ interface Props {
   handleClear?: any;
 }
 
-const index = ({ handleSearch, handleBackPage }: Props) => {
+const Nav = ({ handleSearch, handleBackPage }: Props) => {
   const { debouncedSearch, results, loading, setLoading } = useSearch();
-  const [show, setShow] = useState(false);
-
+  const { refContainer, show, setShow } = useModal();
   return (
-    <NavBar
-      onMouseLeave={() => {
-        setShow(false);
-      }}
-    >
+    <NavBar ref={refContainer}>
       <div>
         {handleBackPage && (
           <button onClick={handleBackPage}>{`< Go back`}</button>
@@ -34,7 +32,9 @@ const index = ({ handleSearch, handleBackPage }: Props) => {
           }
         >
           <input
+            autoComplete="off"
             name="search"
+            onFocus={() => setShow(true)}
             onChange={(e) => {
               setLoading(true);
               debouncedSearch(e);
@@ -49,25 +49,31 @@ const index = ({ handleSearch, handleBackPage }: Props) => {
         ) : results.length ? (
           <StyledResults
             onClick={() => {
-              setShow(true);
+              !show && setShow(true);
             }}
           >
             {results.length} resultados
           </StyledResults>
         ) : null}
       </div>
-      {results.length > 0 && (
-        <StyledResultList show={show}>
-          {results.map((result) => (
-            <Link key={result.id} href={`/game/${result.id}`}>
-              <li>
-                <img src={result.thumbnail} alt={result.title} />
-                <p>{result.title}</p>
-              </li>
-            </Link>
-          ))}
-        </StyledResultList>
-      )}
+      <AnimatePresence>
+        {!loading && results.length > 0 && show && (
+          <StyledResultList>
+            {results.map((result) => (
+              <Link key={result.id} href={`/game/${result.id}`}>
+                <motion.li
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <img src={result.thumbnail} alt={result.title} />
+                  <p>{result.title}</p>
+                </motion.li>
+              </Link>
+            ))}
+          </StyledResultList>
+        )}
+      </AnimatePresence>
     </NavBar>
   );
 };
@@ -77,9 +83,9 @@ const StyledResults = styled.p`
   cursor: pointer;
 `;
 
-const StyledResultList = styled.ul<Props>`
+const StyledResultList = styled.ul`
   margin: 0;
-  display: none;
+  display: flex;
   padding: 10px;
   background-color: #000000ba;
   align-items: center;
@@ -112,13 +118,9 @@ const StyledResultList = styled.ul<Props>`
     & img {
       width: 100%;
       border-radius: 5px;
+      aspect-ratio: 16/9;
     }
   }
-  ${(props) =>
-    props.show &&
-    `
-  display: flex;
-`}
 `;
 
 const NavBar = styled.nav`
@@ -138,6 +140,7 @@ const NavBar = styled.nav`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
   }
   & button,
@@ -169,4 +172,4 @@ const SearchBar = styled.form`
   gap: 10px;
 `;
 
-export default index;
+export default Nav;

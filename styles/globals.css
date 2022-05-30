@@ -21,3 +21,16 @@ a {
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: #292b29;
+}
+::-webkit-scrollbar-thumb {
+  background: #191a19;
+  border: 3px solid #292b29;
+  border-radius: 7px;
+}
