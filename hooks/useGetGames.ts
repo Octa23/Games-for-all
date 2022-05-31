@@ -48,7 +48,8 @@ export const useGetGames = (
         setSort(rsort || sort);
         setLoading(false);
         sessionStorage.removeItem("recover");
-      });
+      })
+      .catch((err) => console.log(err));
   }, [category, filter]);
 
   let sortedGames: Games[] = [];
@@ -56,14 +57,18 @@ export const useGetGames = (
   const handleSort = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSort(e.target.value as sort);
   };
-
-  sort === "name"
-    ? (sortedGames = [...games].sort((a, b) => a.title.localeCompare(b.title)))
-    : sort === "releasedate"
-    ? (sortedGames = [...games].sort((a, b) =>
-        a.release_date < b.release_date ? 1 : -1
-      ))
-    : (sortedGames = [...games]);
+  
+  if (games.length) {
+    sort === "name"
+      ? (sortedGames = [...games].sort((a, b) =>
+          a.title.localeCompare(b.title)
+        ))
+      : sort === "releasedate"
+      ? (sortedGames = [...games].sort((a, b) =>
+          a.release_date < b.release_date ? 1 : -1
+        ))
+      : (sortedGames = [...games]);
+  }
 
   const gamesOnScreen = sortedGames?.slice(
     (page - 1) * maxGamesPerPage,

@@ -21,5 +21,6 @@ export const fetchGames = ({ category = "", gameId = "" }: Props) => {
 
   return fetch(baseUrl, options)
     .then((response) => response.json())
-    .then((response) => response);
+    .then((response) => response)
+    .catch((e) => e);
 };

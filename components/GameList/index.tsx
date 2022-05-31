@@ -22,17 +22,13 @@ const index = ({ filter, category }: Props) => {
   } = useGetGames(filter, category);
   return (
     <>
-      <SortBy handleSort={handleSort} sort={sort} />
+      <SortBy category={category} handleSort={handleSort} sort={sort} />
       <StyledMain>
-        {!loading && gamesOnScreen.length === 0 && (
-          <h1>No se han encontrado juegos</h1>
-        )}
+        {!loading && gamesOnScreen.length === 0 && <h1>No games found</h1>}
         <StyledList>
-          {loading
-            ? Array.from(new Array(12)).map((_, i) => <Skeleton key={i} />)
-            : gamesOnScreen.map((game) => (
-                <GameInfo key={game.id} game={game} page={page} sort={sort} />
-              ))}
+          {gamesOnScreen?.map((game) => (
+            <GameInfo key={game.id} game={game} page={page} sort={sort} />
+          ))}
         </StyledList>
         <Categories />
       </StyledMain>
@@ -63,9 +59,8 @@ export const StyledList = styled.ul`
   grid-template-columns: repeat(auto-fit, 365px);
   gap: 20px;
   padding: 0 10px;
-  &  li {
+  & li {
     position: relative;
-    display: flex;
     flex-direction: column;
     cursor: pointer;
     & h2 {

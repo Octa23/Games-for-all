@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { BsHeart, BsFillHeartFill } from "react-icons/bs";
 import { Games } from "../../types";
 import styled, { keyframes } from "styled-components";
 import useFavorites from "../../hooks/useFavorites";
-
+import Skeleton from "../Skeleton";
 interface Props {
   game: Games;
   page?: number;
@@ -13,39 +13,49 @@ interface Props {
 
 const index = ({ game, page, sort }: Props) => {
   const { handleToggle, isFavorite } = useFavorites(game);
+  const [loading, setLoading] = useState(true);
   const handleClick = () => {
     sessionStorage.setItem("page", String(page));
     sessionStorage.setItem("sort", String(sort));
   };
   return (
-    <Link href={`/game/${game.id}`}>
-      <StyledListItem onClick={handleClick}>
-        <StyledImageContainer>
-          <StyledFavorite onClick={handleToggle}>
-            {isFavorite ? <BsFillHeartFill /> : <BsHeart />}
-          </StyledFavorite>
-          <img alt={game.title + " image"} src={game.thumbnail} />
-        </StyledImageContainer>
-        <StyledMoreInfo>
-          <h2>{game.title}</h2>
-          <StyledExtraInfo>
-            <p>{game.short_description}</p>
-            <StyledGameInfo>
-              <span>{game.publisher}</span>
-              <a
-                target={"_blank"}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                href={game.game_url}
-              >
-                Claim Now!
-              </a>
-            </StyledGameInfo>
-          </StyledExtraInfo>
-        </StyledMoreInfo>
-      </StyledListItem>
-    </Link>
+    <>
+      {loading && <Skeleton />}
+      <Link href={`/game/${game.id}`}>
+        <StyledListItem loading={loading ? 1 : 0} onClick={handleClick}>
+          <StyledImageContainer>
+            <StyledFavorite onClick={handleToggle}>
+              {isFavorite ? <BsFillHeartFill /> : <BsHeart />}
+            </StyledFavorite>
+            <img
+              onLoad={() => {
+                setLoading(false);
+              }}
+              alt={game.title + " image"}
+              src={game.thumbnail}
+            />
+          </StyledImageContainer>
+          <StyledMoreInfo>
+            <h2>{game.title}</h2>
+            <StyledExtraInfo>
+              <p>{game.short_description}</p>
+              <StyledGameInfo>
+                <span>{game.publisher}</span>
+                <a
+                  target={"_blank"}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  href={game.game_url}
+                >
+                  Claim Now!
+                </a>
+              </StyledGameInfo>
+            </StyledExtraInfo>
+          </StyledMoreInfo>
+        </StyledListItem>
+      </Link>
+    </>
   );
 };
 export default React.memo(index, (prev, next) => prev.game.id === next.game.id); //Si el id de las props actuales es igual al de las nuevas no se re-renderiza
@@ -97,7 +107,8 @@ const StyledMoreInfo = styled.div`
     text-overflow: ellipsis;
   }
 `;
-const StyledListItem = styled.li`
+const StyledListItem = styled.li<{ loading: number }>`
+  display: ${(props) => (props.loading ? "none" : "flex")};
   &:hover {
     & img {
       opacity: 0.6;
@@ -151,7 +162,6 @@ const StyledGameInfo = styled.div`
 const StyledImageContainer = styled.div`
   position: relative;
   & img {
-    background-color: #353535;
     width: 100%;
     height: 100%;
     object-fit: cover;

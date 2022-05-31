@@ -11,7 +11,10 @@ export const useGetDetailedGame = (gameId: string) => {
     gameId &&
       fetchGames({ gameId })
         .then(setGameInfo)
-        .then(() => setLoading(false));
+        .then(() => setLoading(false))
+        .catch((e) => {
+          setLoading(false);
+        });
   }, [gameId]);
 
   return { gameInfo, loading };

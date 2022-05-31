@@ -30,15 +30,21 @@ const index = () => {
         <Spinner />
       ) : (
         <StyledMain>
-          <GameDetailedCard gameInfo={gameInfo} />
-          <StyledMainDiv>
-            <h1>{gameInfo.title}</h1>
-            <Carousel screenshots={screenshots} title={gameInfo.title} />
-            <GameArticle gameInfo={gameInfo} />
-            <GameSystemRequirements
-              minimum_system_requirements={minimum_system_requirements}
-            />
-          </StyledMainDiv>
+          {gameInfo.status_message ? (
+            <h1>{gameInfo.status_message}</h1>
+          ) : (
+            <>
+              <GameDetailedCard gameInfo={gameInfo} />
+              <StyledMainDiv>
+                <h1>{gameInfo.title}</h1>
+                <Carousel screenshots={screenshots} title={gameInfo.title} />
+                <GameArticle gameInfo={gameInfo} />
+                <GameSystemRequirements
+                  minimum_system_requirements={minimum_system_requirements}
+                />
+              </StyledMainDiv>
+            </>
+          )}
         </StyledMain>
       )}
     </StyledMainContainer>
